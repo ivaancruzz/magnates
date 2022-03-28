@@ -5,4 +5,8 @@
 * Seguimiento de pedidos realizados.
 * Creacion de tiendas con perfil personalizado.
 * Creacion de productos y categorias.
-* Configuracion de iversos metodos de pago( Efectivo, Transferencia, mercado pago )
+* Configuracion de diversos metodos de pago( Efectivo, Transferencia, mercado pago )
+* Guardado de datos por Mysql 
+* Guardado de imagenes( Cloudinary )
+* Despliegue( Render )
+
