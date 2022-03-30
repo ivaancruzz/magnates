@@ -11,6 +11,12 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+enum Role{
+  FREE
+  VIP
+  ADMIN
+}
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -41,12 +47,156 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?   @unique
-  emailVerified DateTime?
+  email         String    @unique
   image         String?
+  phone         String?
+  whatsapp      Boolean   @default(false)
+  document      String?    
+  address       String?
+  acc_level     Role      @default(FREE)
+  date_joined   DateTime  @default(now())
+  emailVerified DateTime?
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
+  commerces      Commerce[]
 }
+
+model Section{
+  id              Int       @id @default(autoincrement())
+  title           String    
+  commerce        CommerceOnSection[]
+}
+
+model Commerce{
+  id                Int       @id @default(autoincrement())
+  name              String
+  image             String
+  stars             Int       @default(0)
+  sales             Int       @default(0)
+  status            Boolean   @default(true)
+  created_date      DateTime  @default(now())
+  expiration_date   DateTime
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sections          CommerceOnSection[]
+  configuration     cConfiguration?
+  address           cAddress[]
+  emails            cEmail[]
+  phones            cPhone[]
+  products          cProduct[]
+  orders            Order[]
+}
+
+model Order{
+  id              String    @id @default(cuid())
+  buyerId         String
+  vendorId        Int
+  productId       Int
+  buyer           User      @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  vendor          Commerce  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  product         cProduct  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  message         String
+  created_date    DateTime
+  payment_method  String
+  order_status    String
+  payment_status  Boolean
+  coste_sending   Float
+  amount          Float
+}
+
+model cConfiguration{
+  id                  Int       @id @default(autoincrement())
+  status_sales        Boolean   @default(true)
+  status_stars        Boolean   @default(true)
+  status_open         Boolean   @default(true)
+  stock_notification  Boolean   @default(false)
+
+
+  commerce        Commerce  @relation(fields: [commerceId], references: [id])
+  commerceId      Int
+}
+
+model cAddress{
+  id              Int       @id @default(autoincrement())
+  ubication       String
+  latitude        String
+  longitude       String
+
+  commerce        Commerce  @relation(fields: [commerceId], references: [id])
+  commerceId      Int
+}
+
+model cEmail{
+  id              Int       @id @default(autoincrement())
+  email           String
+
+  commerce        Commerce  @relation(fields: [commerceId], references: [id])
+  commerceId      Int
+}
+
+model cPhone{
+  id              Int       @id @default(autoincrement())
+  phone           String
+  whatsapp        Boolean  @default(false)
+
+  commerce        Commerce  @relation(fields: [commerceId], references: [id])
+  commerceId      Int
+}
+
+model cProduct{
+  id              Int       @id @default(autoincrement())
+  name            String
+  description     String
+  price           Float
+  price_off       Float
+  stock           Int
+  sku             String
+  status          Boolean
+  sales           Int
+  views           BigInt
+  categories      ProductOnCategorie[]
+  images          pImage[]
+  order           Order?
+
+  commerce        Commerce  @relation(fields: [commerceId], references: [id])
+  commerceId      Int
+}
+
+model pImage{
+  id              Int       @id @default(autoincrement())
+  image           String
+
+  product        cProduct  @relation(fields: [productId], references: [id])
+  productId      Int
+}
+
+model pCategorie{
+  id              Int       @id @default(autoincrement())
+  name            String
+  status          Boolean   @default(true)
+  product         ProductOnCategorie?
+}
+
+model ProductOnCategorie{
+  product         cProduct   @relation(fields: [productId], references: [id])
+  categorie       pCategorie @relation(fields: [categorieId], references: [id])
+  productId       Int
+  categorieId     Int
+
+  @@id([productId, categorieId])
+}
+
+model CommerceOnSection{
+  commerce        Commerce  @relation(fields: [commerceId], references: [id])
+  commerceId      Int
+  section         Section   @relation(fields: [sectionId], references: [id])
+  sectionId       Int
+
+  @@id([commerceId, sectionId])
+
+}
+
 
 model VerificationToken {
   identifier String
