@@ -1,6 +1,7 @@
 import { getToken } from "next-auth/jwt"
 import { prisma } from "../../../../../client-prisma"
-import { verifyDeletePermissions, userAccountDelete } from "../../../../../utils/api-utils"
+import { verifyDeletePermissions } from "../../../../../utils/api/permissions"
+
 
 
 export default async function handler(req, res) {
@@ -12,7 +13,10 @@ export default async function handler(req, res) {
       res.status(403).json({ message: 'Forbidden' })
     else{
         
-        userAccountDelete( token, prisma )
+        //Query delete
+        await prisma.User.delete({
+            where:{ email: token.email }
+        })
         
         res.status(200).json({ message: 'ok' })
     }
