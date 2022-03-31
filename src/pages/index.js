@@ -16,6 +16,8 @@ export default function Home() {
     signOut()
     
   }
+
+  console.log('index' + session);
   if (session) {
     return (
       <>
