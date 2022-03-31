@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `order` MODIFY `created_date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `coste_sending` DOUBLE NOT NULL DEFAULT 0;

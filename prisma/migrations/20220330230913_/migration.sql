@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE `cproduct` MODIFY `price_off` DOUBLE NULL,
+    MODIFY `sku` VARCHAR(191) NULL,
+    MODIFY `status` BOOLEAN NOT NULL DEFAULT true,
+    MODIFY `sales` INTEGER NOT NULL DEFAULT 0,
+    MODIFY `views` BIGINT NOT NULL DEFAULT 0;
