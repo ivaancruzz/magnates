@@ -21,20 +21,13 @@ export default NextAuth({
       })
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
-      // Persist the OAuth access_token to the token right after signin
-      const u = await prisma.User.findUnique({
-        where:{
-          email: token.email
-        }
-      })
-
-      token.user = u
-
-      return token
-    },
+    // async jwt({ token, user, account }) {
+    //   // Persist the OAuth access_token to the token right after signin
+    //   
+    // },
     async session({ session, token }) {
-      session.user = token.user
+      session.user.id = token.sub
+      console.log(session);
     
       return session
     },
