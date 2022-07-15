@@ -11,3 +11,26 @@ export const verifyDeletePermissions = ( token, method ) => (token && method ===
 export const verifyGetPermissions = ( token, method ) => (token && method === 'GET')
 
 
+//Validate 
+import {isEmpty, isNumeric, isMobilePhone, isMobilePhoneLocales} from 'validator';
+export const validate = {
+
+    createShop: ( obj ) => {
+        return (
+            !isEmpty( obj.shopName) &&
+            !isEmpty( obj.shopStreet) &&
+            !isEmpty( obj.shopProvince) &&
+            isNumeric( obj.shopNumberStreet ) &&
+            isMobilePhone( obj.shopPhoneNumber, isMobilePhoneLocales['es-AR'] ) 
+        )
+    },
+
+    updateAddress: (obj) => {
+        return(
+            !isEmpty( obj.address) &&
+            isNumeric( obj.address_number) &&
+            !isEmpty( obj.address_province )
+        )
+    }
+}
+

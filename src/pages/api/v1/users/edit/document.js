@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       //Query update
       await prisma.User.update({
         where:{ email: token.email },
-        data: document
+        data: {document}
       })
       res.status(201).json({ message: 'ok' })
     } else {

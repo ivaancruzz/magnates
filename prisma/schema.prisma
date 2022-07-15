@@ -51,8 +51,11 @@ model User {
   image         String?
   phone         String?
   whatsapp      Boolean   @default(false)
-  document      String?    
-  address       String?
+  document      String?   
+  address      String?
+  address_number  String?
+  address_province  String?
+  linkMaps      String?
   acc_level     Role      @default(FREE)
   date_joined   DateTime  @default(now())
   emailVerified DateTime?
@@ -70,8 +73,9 @@ model Section{
 
 model Commerce{
   id                Int       @id @default(autoincrement())
+  profileId         String?   @unique
   name              String
-  image             String
+  image             String    @default("https://res.cloudinary.com/magnates/image/upload/s--sQzEgnRP--/v1649303203/logos/xqkvvwfygcy8jlaifd0u.png")
   stars             Int       @default(0)
   sales             Int       @default(0)
   status            Boolean   @default(true)
@@ -120,9 +124,9 @@ model cConfiguration{
 
 model cAddress{
   id              Int       @id @default(autoincrement())
-  ubication       String
-  latitude        String
-  longitude       String
+  street          String
+  number_street   Int
+  province        String
 
   commerce        Commerce  @relation(fields: [commerceId], references: [id], onDelete: Cascade)
   commerceId      Int
@@ -148,6 +152,7 @@ model cPhone{
 model cProduct{
   id              Int       @id @default(autoincrement())
   name            String
+  link_name       String
   description     String
   price           Float
   price_off       Float?

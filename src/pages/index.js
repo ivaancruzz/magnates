@@ -17,10 +17,10 @@ export default function Home() {
     
   }
 
-  console.log('index' + session);
   if (session) {
     return (
       <>
+        {session.user.name} <br/>
         Signed in as {session.user.email} <br />
         whatsapp {session.user.whatsapp ? 'Si':'No'} <br />
         <button onClick={() => signOut()}>Sign out</button>

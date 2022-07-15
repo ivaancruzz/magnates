@@ -1,0 +1,44 @@
+@import 'variables.module.scss';
+
+.card, .cardCreate{
+    min-height: 200px;
+    height: 200px;
+    max-height: 200px;
+}
+
+.card{
+    background-color: white;
+
+}
+.cardCreate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $dark;
+}
+
+.actionButton{
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem;
+    color: $dark
+
+}
+
+.imageProduct{
+    height: 60%;
+    background-color: $dark;
+}
+.cardBody{
+    height:40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.6rem;
+}

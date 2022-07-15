@@ -1,0 +1,19 @@
+$primary: #b88900;
+$secondary:#C4A775;
+$muted: #DFE0DF;
+$dark: #402E32;
+$success: #00B07C;
+$danger: #aa002d;
+$warning: #e8e236;
+$info: #00AFC5;
+
+:export{
+    primaryColor: $primary;
+    secondaryColor: $secondary;
+    darkColor: $dark;
+    mutedColor: $muted;
+    successColor: $success;
+    dangerColor: $danger;
+    warningColor: $warning;
+    infoColor: $info;
+}

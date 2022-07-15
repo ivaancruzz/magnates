@@ -1,0 +1,48 @@
+@use 'variables.module' as *;
+
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "muted": $muted,
+    "dark":$dark,
+    "success": $success,
+    "danger": $danger,
+    "warning": $warning,
+    "info": $info,
+);
+html,body{
+    background-color: $muted !important;
+    height: 100vh;
+}
+
+#__next{
+    height: 100vh !important;
+}
+.rounded-container{
+    border-radius: 2.3rem;
+}
+
+.fixed-bottom-buttons{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.z-1{
+    z-index: 100;
+}
+.z-2{
+    z-index: 120;
+}
+
+.border-dashed{
+    border: 1px dashed #dee2e6  !important;
+}
+
+.scroll-full-height{
+    min-height: 100%;
+    height: 30px;
+    overflow: auto;
+}
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";

@@ -8,16 +8,16 @@ export default async function handler(req, res) {
     const token = await getToken({req})
     const method = req.method
 
+    const {commerceId, name} = req.body
+
     
     if( !verifyCreatePermissions(token, method) )
       res.status(403).json({ message: 'Forbidden' })
     else{
-        const commerceId = 1
-        
         const categorie = await prisma.cCategorie.create({
             data:{
                 commerceId,
-                name:'Lonas',
+                name
             }
         })
         
